@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE7EA8492D3568850081BC98 /* PlaceholderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */; };
+		CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */; };
 		CE83C6A12D34129900BB041A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE83C6982D34129900BB041A /* Assets.xcassets */; };
 		CE83C6A52D34129900BB041A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6972D34129900BB041A /* AppDelegate.swift */; };
 		CE83C6A62D34129900BB041A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C69E2D34129900BB041A /* SceneDelegate.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderUIView.swift; sourceTree = "<group>"; };
+		CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UIAlertController.swift"; sourceTree = "<group>"; };
 		CE83C67E2D34128400BB041A /* Cooksantara App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cooksantara App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE83C6972D34129900BB041A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE83C6982D34129900BB041A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE7EA84A2D356A5E0081BC98 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CE83C6752D34128400BB041A = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				CE83C6AA2D3412C500BB041A /* ViewControllers */,
+				CE7EA84A2D356A5E0081BC98 /* Views */,
 				CE83C6AD2D3412EA00BB041A /* Models */,
 				CE83C6B42D34238C00BB041A /* Extension */,
 				CE83C6B12D341F6F00BB041A /* Network */,
@@ -129,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				CE83C6B22D34237500BB041A /* extension + UIView.swift */,
+				CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -213,9 +227,11 @@
 				CE83C6BA2D3452BD00BB041A /* SearchViewController.swift in Sources */,
 				CE83C6B82D3452A800BB041A /* HomeViewController.swift in Sources */,
 				CE83C6B02D341F6600BB041A /* NetworkManager.swift in Sources */,
+				CE7EA8492D3568850081BC98 /* PlaceholderUIView.swift in Sources */,
 				CE83C6BE2D34531100BB041A /* ProfileViewController.swift in Sources */,
 				CE83C6B62D344FD500BB041A /* TabBarViewController.swift in Sources */,
 				CE83C6A62D34129900BB041A /* SceneDelegate.swift in Sources */,
+				CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */,
 				CE83C6BC2D3452F900BB041A /* FavouritesViewController.swift in Sources */,
 				CE83C6A72D34129900BB041A /* LaunchViewController.swift in Sources */,
 			);

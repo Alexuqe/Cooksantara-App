@@ -24,7 +24,6 @@ final class LaunchViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         updateUI()
-        navigationController?.navigationBar.isHidden = true
     }
 
     override func viewDidLayoutSubviews() {
@@ -32,10 +31,25 @@ final class LaunchViewController: UIViewController {
         configureGradientDarkBlurView()
     }
 
+    //MARK: Action Button
+    @objc private func startButtonAction() {
+        navigateToTabBar()
+    }
+
 }
 
 private extension LaunchViewController {
+    //MARK: Navigate
+    func navigateToTabBar() {
+        let tabBarController = TabBarViewController()
+        tabBarController.modalPresentationStyle = .fullScreen
 
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+                sceneDelegate.window?.rootViewController = tabBarController
+                sceneDelegate.window?.makeKeyAndVisible()
+    }
+
+    
     //MARK: Update UI
     func updateUI() {
         configureLaunchImageView()
@@ -109,6 +123,8 @@ private extension LaunchViewController {
 
         view.addSubview(startButton)
         configureConstraintsStartButton()
+
+        startButton.addTarget(self, action: #selector(startButtonAction), for: .touchUpInside)
     }
 
     func configureLauchDescriptionLabel() {
@@ -194,13 +210,6 @@ private extension LaunchViewController {
             logoView.bottomAnchor.constraint(equalTo: lauchDescriptionLabel.topAnchor, constant: -35)
         ])
     }
-
-
-
-
-
-
-
 
 }
 
