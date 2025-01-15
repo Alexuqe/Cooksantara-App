@@ -10,15 +10,14 @@ import UIKit
 final class PlaceholderUIView: UIView {
 
     //MARK: Private Outlets
-    private let nameDishLabel = UILabel()
-    private let ratingDishLabel = UILabel()
-    private let favouriteButton = UIButton()
+     let nameDishLabel = UILabel()
+     let ratingDishLabel = UILabel()
+     let favouriteButton = UIButton()
 
 
     //MARK: Initialize
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         updateUI()
     }
     
@@ -28,7 +27,7 @@ final class PlaceholderUIView: UIView {
 
 
     //MARK: Update UI
-    func updateUI() {
+    private func updateUI() {
         configureUIView()
         configureFavouriteButton()
         configureNameDishLabel()
@@ -40,13 +39,15 @@ final class PlaceholderUIView: UIView {
     private func configureUIView() {
         backgroundColor = .backgroundPlaceholderView
         translatesAutoresizingMaskIntoConstraints = false
+
+        
     }
 
     private func configureFavouriteButton() {
         var configure = UIButton.Configuration.filled()
         configure.image = UIImage(systemName: "bookmark.fill")
-        configure.baseBackgroundColor = .green
         configure.baseForegroundColor = .startButton
+        configure.baseBackgroundColor = .clear
         configure.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         favouriteButton.configuration = configure
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -57,9 +58,12 @@ final class PlaceholderUIView: UIView {
 
     private func configureNameDishLabel() {
         nameDishLabel.text = "Bakso"
-        nameDishLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        nameDishLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        nameDishLabel.textColor = .white
         nameDishLabel.textAlignment = .left
         nameDishLabel.minimumScaleFactor = 0.9
+        nameDishLabel.numberOfLines = 2
+        nameDishLabel.adjustsFontForContentSizeCategory = true
         nameDishLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(nameDishLabel)
@@ -69,36 +73,36 @@ final class PlaceholderUIView: UIView {
     private func configureRatingDishLabel() {
         ratingDishLabel.text = "4.0"
         ratingDishLabel.font = UIFont.systemFont(ofSize: 10, weight: .light)
+        ratingDishLabel.textColor = .white
         ratingDishLabel.textAlignment = .left
-        ratingDishLabel.minimumScaleFactor = 0.9
+        ratingDishLabel.minimumScaleFactor = 0.8
+        ratingDishLabel.adjustsFontForContentSizeCategory = true
         ratingDishLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(ratingDishLabel)
         constraintsRatingDishLabel()
     }
 
-
+//MARK: Constraints UI
     private func constraintsFavouriteButton() {
         NSLayoutConstraint.activate([
             favouriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             favouriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            favouriteButton.widthAnchor.constraint(equalTo: favouriteButton.heightAnchor),
-            favouriteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+            favouriteButton.widthAnchor.constraint(equalTo: favouriteButton.heightAnchor)
         ])
     }
 
     private func constraintsNameDishLabel() {
         NSLayoutConstraint.activate([
-            nameDishLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            nameDishLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             nameDishLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nameDishLabel.trailingAnchor.constraint(equalTo: favouriteButton.leadingAnchor, constant: -30),
-            nameDishLabel.heightAnchor.constraint(equalToConstant: 15)
+            nameDishLabel.trailingAnchor.constraint(equalTo: favouriteButton.leadingAnchor, constant: -30)
         ])
     }
 
     private func constraintsRatingDishLabel() {
         NSLayoutConstraint.activate([
-            ratingDishLabel.topAnchor.constraint(equalTo: nameDishLabel.bottomAnchor, constant: 5),
+            ratingDishLabel.topAnchor.constraint(equalTo: nameDishLabel.bottomAnchor, constant: 4),
             ratingDishLabel.leadingAnchor.constraint(equalTo: nameDishLabel.leadingAnchor),
             ratingDishLabel.trailingAnchor.constraint(equalTo: nameDishLabel.trailingAnchor),
             ratingDishLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
@@ -109,6 +113,6 @@ final class PlaceholderUIView: UIView {
 }
 
 #Preview {
-    let view = PlaceholderUIView()
+    let view = HomeViewController()
     view
 }

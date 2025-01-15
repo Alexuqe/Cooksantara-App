@@ -10,7 +10,7 @@ import UIKit
 
 
 extension UIViewController {
-    private func showAlert(with status: Alert) {
+    func showAlert(with status: Alert) {
         let alert = UIAlertController(
             title: status.title,
             message: status.message,
@@ -18,7 +18,10 @@ extension UIViewController {
         )
         let action = UIAlertAction(title: "OK", style: .default)
         alert.addAction(action)
-        present(alert, animated: true)
+
+        DispatchQueue.main.async { [unowned self] in
+            present(alert, animated: true)
+        }
     }
 }
 

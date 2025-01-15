@@ -7,6 +7,7 @@
 
 import UIKit
 
+    //MARK: Enums
 enum HeadersCollectioView: CaseIterable {
     case trending
     case popularChef
@@ -72,50 +73,59 @@ final class HomeViewController: UIViewController {
     private lazy var trendingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 150, height: 200)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 15
 
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .green
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
 
+    var recipes: [Recipe] = []
+
+    //MARK: Private Properties
+    private let networkManager = NetworkManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
 
         configureNavigationBar()
-        updateUI()
+        setupUI()
+        registerCell()
+        fetchReceites()
     }
 
 
     //MARK: Private Properties
     private func configureNavigationBar() {
         let appearance = UINavigationBarAppearance()
+        let paragrafStyle = NSMutableParagraphStyle()
+        paragrafStyle.lineHeightMultiple = 1.33
         appearance.largeTitleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 25, weight: .bold),
+            .font: UIFont.systemFont(ofSize: 22, weight: .bold),
             .foregroundColor: UIColor.black,
-        ]
+            .paragraphStyle: paragrafStyle]
 
+        appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .white
+
+        navigationItem.title = "What do you want cooking today?"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationItem.largeTitleDisplayMode = .always
     }
-
-
 }
 
-//MARK: Configure UI
+    //MARK: Configure UI
 private extension HomeViewController {
 
-    func updateUI() {
+    func setupUI() {
         addSubviews()
-
         constraintsSearchBar()
         constraintsScrollView()
         constraintsContentView()
@@ -131,8 +141,16 @@ private extension HomeViewController {
         viewArray.forEach {contentView.addSubview($0)}
     }
 
+    func registerCell() {
+        trendingCollectionView.dataSource = self
+        trendingCollectionView.delegate = self
+        trendingCollectionView.register(
+            TrendinCollectionViewCell.self,
+            forCellWithReuseIdentifier: TrendinCollectionViewCell.identifer)
+    }
 
 
+        //MARK: Constraints
     func constraintsSearchBar() {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -166,15 +184,40 @@ private extension HomeViewController {
             trendingCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             trendingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             trendingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            trendingCollectionView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.4)
+            trendingCollectionView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6)
 
         ])
     }
+}
 
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let availableHeight = collectionView.bounds.height * 0.95
+        let width = availableHeight * 0.7 // Ширина чуть меньше высоты для пропорций
+        return CGSize(width: width, height: availableHeight)
 
+    }
+}
 
-
-
+    //MARK: Network
+private extension HomeViewController {
+    func fetchReceites() {
+        networkManager.fetch(Recipes.self, from: Links.receipt.url) { [weak self] result in
+            guard let self else { return }
+            switch result {
+                case .success(let dataReceipt):
+                    self.recipes = dataReceipt.recipes
+                    trendingCollectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                    showAlert(with: .failed)
+            }
+        }
+    }
 }
 
 

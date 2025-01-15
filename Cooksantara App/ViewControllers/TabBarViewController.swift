@@ -15,6 +15,7 @@ final class TabBarViewController: UITabBarController {
     private let favouritesVC = FavouritesViewController()
     private let profileVC = ProfileViewController()
 
+    //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,18 +28,17 @@ final class TabBarViewController: UITabBarController {
         let apperance = UITabBarAppearance()
         apperance.backgroundColor = .white
         apperance.configureWithOpaqueBackground()
-
-
+        
         tabBar.standardAppearance = apperance
         tabBar.scrollEdgeAppearance = apperance
     }
 
     private func setupTabBarController() {
-
         let homeNavigationController = addNavigationController(with: homeVC)
         let searchNavigationController = addNavigationController(with: searchVC)
         let favouritesNavigationController = addNavigationController(with: favouritesVC)
         let profileNavigationController = addNavigationController(with: profileVC)
+
 
         homeNavigationController.tabBarItem = UITabBarItem(
             title: nil,

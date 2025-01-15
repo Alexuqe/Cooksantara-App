@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE1091A82D36C58F00A1E96D /* extension + UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */; };
+		CE1091AA2D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */; };
+		CE1091AC2D36D10100A1E96D /* TrendinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */; };
 		CE7EA8492D3568850081BC98 /* PlaceholderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */; };
 		CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */; };
 		CE83C6A12D34129900BB041A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE83C6982D34129900BB041A /* Assets.xcassets */; };
 		CE83C6A52D34129900BB041A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6972D34129900BB041A /* AppDelegate.swift */; };
 		CE83C6A62D34129900BB041A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C69E2D34129900BB041A /* SceneDelegate.swift */; };
 		CE83C6A72D34129900BB041A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C69F2D34129900BB041A /* LaunchViewController.swift */; };
-		CE83C6AC2D3412E200BB041A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6AB2D3412D700BB041A /* Receipt.swift */; };
+		CE83C6AC2D3412E200BB041A /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6AB2D3412D700BB041A /* Recipe.swift */; };
 		CE83C6B02D341F6600BB041A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6AF2D341F5F00BB041A /* NetworkManager.swift */; };
 		CE83C6B32D34238600BB041A /* extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6B22D34237500BB041A /* extension + UIView.swift */; };
 		CE83C6B62D344FD500BB041A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6B52D344FD500BB041A /* TabBarViewController.swift */; };
@@ -24,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
+		CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
+		CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendinCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderUIView.swift; sourceTree = "<group>"; };
 		CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UIAlertController.swift"; sourceTree = "<group>"; };
 		CE83C67E2D34128400BB041A /* Cooksantara App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cooksantara App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,7 +38,7 @@
 		CE83C6992D34129900BB041A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE83C69E2D34129900BB041A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CE83C69F2D34129900BB041A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		CE83C6AB2D3412D700BB041A /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		CE83C6AB2D3412D700BB041A /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		CE83C6AF2D341F5F00BB041A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CE83C6B22D34237500BB041A /* extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UIView.swift"; sourceTree = "<group>"; };
 		CE83C6B52D344FD500BB041A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */,
+				CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,7 +132,7 @@
 		CE83C6AD2D3412EA00BB041A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CE83C6AB2D3412D700BB041A /* Receipt.swift */,
+				CE83C6AB2D3412D700BB041A /* Recipe.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -143,6 +150,8 @@
 			children = (
 				CE83C6B22D34237500BB041A /* extension + UIView.swift */,
 				CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */,
+				CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */,
+				CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -222,16 +231,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE83C6B32D34238600BB041A /* extension + UIView.swift in Sources */,
-				CE83C6AC2D3412E200BB041A /* Receipt.swift in Sources */,
+				CE83C6AC2D3412E200BB041A /* Recipe.swift in Sources */,
 				CE83C6A52D34129900BB041A /* AppDelegate.swift in Sources */,
 				CE83C6BA2D3452BD00BB041A /* SearchViewController.swift in Sources */,
 				CE83C6B82D3452A800BB041A /* HomeViewController.swift in Sources */,
+				CE1091AC2D36D10100A1E96D /* TrendinCollectionViewCell.swift in Sources */,
 				CE83C6B02D341F6600BB041A /* NetworkManager.swift in Sources */,
 				CE7EA8492D3568850081BC98 /* PlaceholderUIView.swift in Sources */,
 				CE83C6BE2D34531100BB041A /* ProfileViewController.swift in Sources */,
 				CE83C6B62D344FD500BB041A /* TabBarViewController.swift in Sources */,
 				CE83C6A62D34129900BB041A /* SceneDelegate.swift in Sources */,
+				CE1091AA2D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift in Sources */,
 				CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */,
+				CE1091A82D36C58F00A1E96D /* extension + UICollectionViewDataSource.swift in Sources */,
 				CE83C6BC2D3452F900BB041A /* FavouritesViewController.swift in Sources */,
 				CE83C6A72D34129900BB041A /* LaunchViewController.swift in Sources */,
 			);
