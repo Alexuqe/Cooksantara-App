@@ -39,7 +39,7 @@ final class TrendinCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         updateUI()
-        viewWithDetail.layer.cornerRadius = 15
+        viewWithDetail.layer.cornerRadius = 20
     }
 
     override func prepareForReuse() {
@@ -104,7 +104,7 @@ private extension TrendinCollectionViewCell {
     func constraintsDishImage() {
         NSLayoutConstraint.activate([
             dishImage.topAnchor.constraint(equalTo: topAnchor),
-            dishImage.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dishImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             dishImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             dishImage.trailingAnchor.constraint(equalTo: trailingAnchor)
 

@@ -10,6 +10,9 @@
 		CE1091A82D36C58F00A1E96D /* extension + UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */; };
 		CE1091AA2D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */; };
 		CE1091AC2D36D10100A1E96D /* TrendinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */; };
+		CE5FDD302D398B1C003C39A2 /* extension + UICollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5FDD2F2D398B0D003C39A2 /* extension + UICollectionViewFlowLayout.swift */; };
+		CE5FDD322D399B55003C39A2 /* ChefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5FDD312D399B55003C39A2 /* ChefCollectionViewCell.swift */; };
+		CE5FDD342D399B8E003C39A2 /* DetailReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5FDD332D399B8E003C39A2 /* DetailReceiptViewController.swift */; };
 		CE7EA8492D3568850081BC98 /* PlaceholderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */; };
 		CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */; };
 		CE83C6A12D34129900BB041A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE83C6982D34129900BB041A /* Assets.xcassets */; };
@@ -24,12 +27,16 @@
 		CE83C6BA2D3452BD00BB041A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6B92D3452BD00BB041A /* SearchViewController.swift */; };
 		CE83C6BC2D3452F900BB041A /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6BB2D3452F900BB041A /* FavouritesViewController.swift */; };
 		CE83C6BE2D34531100BB041A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83C6BD2D34531100BB041A /* ProfileViewController.swift */; };
+		CEA5253C2D39757600E43370 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5253B2D39757600E43370 /* HeaderCollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
 		CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendinCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE5FDD2F2D398B0D003C39A2 /* extension + UICollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewFlowLayout.swift"; sourceTree = "<group>"; };
+		CE5FDD312D399B55003C39A2 /* ChefCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE5FDD332D399B8E003C39A2 /* DetailReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReceiptViewController.swift; sourceTree = "<group>"; };
 		CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderUIView.swift; sourceTree = "<group>"; };
 		CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UIAlertController.swift"; sourceTree = "<group>"; };
 		CE83C67E2D34128400BB041A /* Cooksantara App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cooksantara App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,6 +53,7 @@
 		CE83C6B92D3452BD00BB041A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CE83C6BB2D3452F900BB041A /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		CE83C6BD2D34531100BB041A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CEA5253B2D39757600E43370 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +72,8 @@
 			children = (
 				CE7EA8482D3568850081BC98 /* PlaceholderUIView.swift */,
 				CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */,
+				CE5FDD312D399B55003C39A2 /* ChefCollectionViewCell.swift */,
+				CEA5253B2D39757600E43370 /* HeaderCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +132,7 @@
 				CE83C69F2D34129900BB041A /* LaunchViewController.swift */,
 				CE83C6B52D344FD500BB041A /* TabBarViewController.swift */,
 				CE83C6B72D3452A800BB041A /* HomeViewController.swift */,
+				CE5FDD332D399B8E003C39A2 /* DetailReceiptViewController.swift */,
 				CE83C6B92D3452BD00BB041A /* SearchViewController.swift */,
 				CE83C6BB2D3452F900BB041A /* FavouritesViewController.swift */,
 				CE83C6BD2D34531100BB041A /* ProfileViewController.swift */,
@@ -151,6 +162,7 @@
 				CE83C6B22D34237500BB041A /* extension + UIView.swift */,
 				CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */,
 				CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */,
+				CE5FDD2F2D398B0D003C39A2 /* extension + UICollectionViewFlowLayout.swift */,
 				CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */,
 			);
 			path = Extension;
@@ -232,6 +244,7 @@
 			files = (
 				CE83C6B32D34238600BB041A /* extension + UIView.swift in Sources */,
 				CE83C6AC2D3412E200BB041A /* Recipe.swift in Sources */,
+				CE5FDD342D399B8E003C39A2 /* DetailReceiptViewController.swift in Sources */,
 				CE83C6A52D34129900BB041A /* AppDelegate.swift in Sources */,
 				CE83C6BA2D3452BD00BB041A /* SearchViewController.swift in Sources */,
 				CE83C6B82D3452A800BB041A /* HomeViewController.swift in Sources */,
@@ -240,9 +253,12 @@
 				CE7EA8492D3568850081BC98 /* PlaceholderUIView.swift in Sources */,
 				CE83C6BE2D34531100BB041A /* ProfileViewController.swift in Sources */,
 				CE83C6B62D344FD500BB041A /* TabBarViewController.swift in Sources */,
+				CE5FDD302D398B1C003C39A2 /* extension + UICollectionViewFlowLayout.swift in Sources */,
 				CE83C6A62D34129900BB041A /* SceneDelegate.swift in Sources */,
 				CE1091AA2D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift in Sources */,
+				CE5FDD322D399B55003C39A2 /* ChefCollectionViewCell.swift in Sources */,
 				CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */,
+				CEA5253C2D39757600E43370 /* HeaderCollectionReusableView.swift in Sources */,
 				CE1091A82D36C58F00A1E96D /* extension + UICollectionViewDataSource.swift in Sources */,
 				CE83C6BC2D3452F900BB041A /* FavouritesViewController.swift in Sources */,
 				CE83C6A72D34129900BB041A /* LaunchViewController.swift in Sources */,

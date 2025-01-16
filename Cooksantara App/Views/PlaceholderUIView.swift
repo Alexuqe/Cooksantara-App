@@ -57,8 +57,7 @@ final class PlaceholderUIView: UIView {
     }
 
     private func configureNameDishLabel() {
-        nameDishLabel.text = "Bakso"
-        nameDishLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        nameDishLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         nameDishLabel.textColor = .white
         nameDishLabel.textAlignment = .left
         nameDishLabel.minimumScaleFactor = 0.9
@@ -71,11 +70,10 @@ final class PlaceholderUIView: UIView {
     }
 
     private func configureRatingDishLabel() {
-        ratingDishLabel.text = "4.0"
-        ratingDishLabel.font = UIFont.systemFont(ofSize: 10, weight: .light)
+        ratingDishLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
         ratingDishLabel.textColor = .white
         ratingDishLabel.textAlignment = .left
-        ratingDishLabel.minimumScaleFactor = 0.8
+        ratingDishLabel.minimumScaleFactor = 0.9
         ratingDishLabel.adjustsFontForContentSizeCategory = true
         ratingDishLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -94,7 +92,7 @@ final class PlaceholderUIView: UIView {
 
     private func constraintsNameDishLabel() {
         NSLayoutConstraint.activate([
-            nameDishLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            nameDishLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             nameDishLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             nameDishLabel.trailingAnchor.constraint(equalTo: favouriteButton.leadingAnchor, constant: -30)
         ])
@@ -102,7 +100,7 @@ final class PlaceholderUIView: UIView {
 
     private func constraintsRatingDishLabel() {
         NSLayoutConstraint.activate([
-            ratingDishLabel.topAnchor.constraint(equalTo: nameDishLabel.bottomAnchor, constant: 4),
+            ratingDishLabel.topAnchor.constraint(equalTo: nameDishLabel.bottomAnchor, constant: 15),
             ratingDishLabel.leadingAnchor.constraint(equalTo: nameDishLabel.leadingAnchor),
             ratingDishLabel.trailingAnchor.constraint(equalTo: nameDishLabel.trailingAnchor),
             ratingDishLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)

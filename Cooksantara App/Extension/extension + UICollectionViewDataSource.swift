@@ -21,5 +21,7 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.set(with: receiptOnIndex)
         return cell
     }
-    
+
+
+
 }

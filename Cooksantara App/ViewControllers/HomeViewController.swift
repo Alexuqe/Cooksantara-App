@@ -10,14 +10,25 @@ import UIKit
     //MARK: Enums
 enum HeadersCollectioView: CaseIterable {
     case trending
-    case popularChef
+    case mealType
     case proTips
 
     var title: String {
         switch self {
             case .trending: "Trending"
-            case .popularChef: "Popular Chef"
+            case .mealType: "Meal Type"
             case .proTips: "Pro Tips"
+        }
+    }
+
+    var image: UIImage {
+        switch self {
+            case .trending:
+                    .trandin
+            case .mealType:
+                    .popalrChefHeart
+            case .proTips:
+                    .icLamp
         }
     }
 }
@@ -47,7 +58,7 @@ enum Alert {
 
 final class HomeViewController: UIViewController {
 
-    //MARK: Private Outlets
+        //MARK: Private Outlets
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search recipe"
@@ -65,30 +76,42 @@ final class HomeViewController: UIViewController {
 
     private lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray6
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
-    private lazy var trendingCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 15
-
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
+    private lazy var trendingImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = HeadersCollectioView.trending.image
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
+    private lazy var trendingLabel: UILabel = {
+        let label = UILabel()
+        label.text = HeadersCollectioView.trending.title
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.textColor = .black
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.9
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    private lazy var trendingStackView = createStackView(subviews: viewsOnStack)
+
+    private lazy var trendingCollectionView = createCollectionView()
+
+        //MARK: Properties
     var recipes: [Recipe] = []
 
-    //MARK: Private Properties
+        //MARK: Private Properties
     private let networkManager = NetworkManager.shared
+    private lazy var viewsOnStack: [UIView] = [trendingImage, trendingLabel]
 
+        //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -100,7 +123,12 @@ final class HomeViewController: UIViewController {
     }
 
 
+}
+
     //MARK: Private Properties
+private extension HomeViewController {
+
+        //MARK: Configure UI
     private func configureNavigationBar() {
         let appearance = UINavigationBarAppearance()
         let paragrafStyle = NSMutableParagraphStyle()
@@ -119,16 +147,13 @@ final class HomeViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationItem.largeTitleDisplayMode = .always
     }
-}
-
-    //MARK: Configure UI
-private extension HomeViewController {
 
     func setupUI() {
         addSubviews()
         constraintsSearchBar()
         constraintsScrollView()
         constraintsContentView()
+        constraintsTrendingStackView()
         constraintsTrandingCollectionView()
     }
 
@@ -137,7 +162,7 @@ private extension HomeViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
 
-        let viewArray = [trendingCollectionView]
+        let viewArray = [trendingStackView, trendingCollectionView]
         viewArray.forEach {contentView.addSubview($0)}
     }
 
@@ -147,6 +172,8 @@ private extension HomeViewController {
         trendingCollectionView.register(
             TrendinCollectionViewCell.self,
             forCellWithReuseIdentifier: TrendinCollectionViewCell.identifer)
+
+            //  trendingCollectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifer)
     }
 
 
@@ -179,9 +206,19 @@ private extension HomeViewController {
         ])
     }
 
+    func constraintsTrendingStackView() {
+        NSLayoutConstraint.activate([
+            trendingStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            trendingStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            trendingStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4),
+            trendingStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.03)
+
+        ])
+    }
+
     func constraintsTrandingCollectionView() {
         NSLayoutConstraint.activate([
-            trendingCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            trendingCollectionView.topAnchor.constraint(equalTo: trendingStackView.bottomAnchor, constant: 5),
             trendingCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             trendingCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             trendingCollectionView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6)
@@ -190,18 +227,50 @@ private extension HomeViewController {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        let availableHeight = collectionView.bounds.height * 0.95
-        let width = availableHeight * 0.7 // Ширина чуть меньше высоты для пропорций
-        return CGSize(width: width, height: availableHeight)
+    //MARK: UI Helper
+private extension HomeViewController {
 
+    func createStackView(
+        axis: NSLayoutConstraint.Axis = .horizontal,
+        spacing: CGFloat = 2,
+        distribution: UIStackView.Distribution = .fillProportionally,
+        aligment: UIStackView.Alignment = .fill,
+        subviews: [UIView]
+    ) -> UIStackView {
+        {
+        let stacView = $0
+        stacView.axis = axis
+        stacView.spacing = spacing
+        stacView.alignment = aligment
+        stacView.distribution = distribution
+        subviews.forEach { stacView.addArrangedSubview($0) }
+        stacView.translatesAutoresizingMaskIntoConstraints = false
+
+        return stacView
+        }(UIStackView())
     }
+
+    func createCollectionView(
+        scroll: UICollectionView.ScrollDirection = .horizontal,
+        sectionInserts: UIEdgeInsets = UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 8),
+        minimumInteritemSpacing: CGFloat = 10,
+        minimumLineSpacing: CGFloat = 15
+    ) -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = sectionInserts
+        layout.minimumInteritemSpacing = minimumInteritemSpacing
+        layout.minimumLineSpacing = minimumLineSpacing
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }
+
+
 }
+
 
     //MARK: Network
 private extension HomeViewController {
