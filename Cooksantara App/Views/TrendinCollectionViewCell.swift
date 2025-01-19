@@ -33,6 +33,7 @@ final class TrendinCollectionViewCell: UICollectionViewCell {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
+    
     private let viewWithDetail = PlaceholderUIView()
 
         //MARK: Initializer
@@ -84,6 +85,8 @@ final class TrendinCollectionViewCell: UICollectionViewCell {
 
             }
         }
+
+
     }
 }
 

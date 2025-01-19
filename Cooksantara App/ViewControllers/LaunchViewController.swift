@@ -19,6 +19,11 @@ final class LaunchViewController: UIViewController {
     //MARK: Private Properties
     let colorButton = UIColor.startButton
 
+    deinit {
+        print("screen is deinit")
+    }
+
+
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

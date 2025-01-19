@@ -14,10 +14,9 @@ extension HomeViewController: UICollectionViewDelegate {
         let receiptsDetail = recipes[indexPath.item]
 
         let detailVC = DetailReceiptViewController()
-//        detailVC.dishImage.image = UIImage(named: receiptsDetail.image) ?? UIImage(systemName: "tray")
-//        detailVC.ratingDishLabel.text = "\(receiptsDetail.rating) ★"
-//        detailVC.minutesLabel.text = "\(receiptsDetail.cookTimeMinutes) Min"
-        detailVC.recipe = receiptsDetail
+        detailVC.recipes = receiptsDetail
+        detailVC.title = receiptsDetail.name
+
 
         navigationController?.pushViewController(detailVC, animated: true)
     }

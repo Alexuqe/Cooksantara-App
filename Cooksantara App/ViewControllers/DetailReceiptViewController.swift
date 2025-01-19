@@ -9,8 +9,22 @@ import UIKit
 
 final class DetailReceiptViewController: UIViewController {
 
-    //MARK: Outlets
-    var dishImage: UIImageView = {
+    //MARK: Private Outlets
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+
+        scrollView.alwaysBounceVertical = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var dishImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -20,51 +34,80 @@ final class DetailReceiptViewController: UIViewController {
         return imageView
     }()
 
-    lazy var ratingDishLabel = addLabel()
-    lazy var minutesLabel = addLabel()
-    lazy var difficultyLabel = addLabel()
+    private let activituIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .large
+        indicator.layer.cornerRadius = 50
+        indicator.contentMode = .scaleAspectFill
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
 
-    //MARK: Private Outlets
+    private lazy var ratingDishLabel = addLabel()
+    private lazy var minutesLabel = addLabel()
+    private  lazy var difficultyLabel = addLabel()
     private lazy var labelStackView = createStackView(subviews: views)
-    private let favouriteButton = UIBarButtonItem()
-    private let segmentedUIView = UIView()
-    private var segmentedController = UISegmentedControl()
+    private lazy var segmentedUIView = UIView()
+    private lazy var segmentedController = UISegmentedControl()
+    private lazy var ingredientsLabel: UILabel = {
+        let ingredientsLabel = UILabel()
+        ingredientsLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        ingredientsLabel.textColor = UIColor.systemGray
+        ingredientsLabel.numberOfLines = 0
+        ingredientsLabel.minimumScaleFactor = 0.9
+        ingredientsLabel.textAlignment = .left
+        ingredientsLabel.setContentHuggingPriority(.required, for: .vertical)
+        ingredientsLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        ingredientsLabel.adjustsFontForContentSizeCategory = true
+        ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
+        return ingredientsLabel
+    }()
+
+
+
+//MARK: Properties
+    var recipes: Recipe?
 
     //MARK: Private Propeties
     private lazy var views: [UIView] = [ratingDishLabel, minutesLabel, difficultyLabel]
     private let networkManager = NetworkManager.shared
-//    private var recipes: [Recipe] = []
-    var recipe: Recipe? {
-        didSet {
-            guard let recipe = recipe else { return }
-            dishImage.image = UIImage(named: recipe.image) ?? UIImage(systemName: "tray")
-            ratingDishLabel.text = "\(recipe.rating) ★"
-            minutesLabel.text = "\(recipe.cookTimeMinutes) Min"
-            difficultyLabel.text = recipe.difficulty
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.largeTitleDisplayMode = .never
+        scrollView.delegate = self
         setupUI()
         updateUI()
     }
 
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        segmentedUIView.layer.cornerRadius = segmentedUIView.bounds.height / 2
+        segmentedUIView.layoutIfNeeded()
+        segmentedUIView.layer.cornerRadius = segmentedUIView.frame.height / 2
     }
 
 }
 
 private extension DetailReceiptViewController {
 
+    //MARK: Update UI
     func updateUI() {
+        fetchDishImage()
+        ratingDishLabel.text = "★ \(recipes?.rating ?? 0)"
+        minutesLabel.text = "⏱︎ \(recipes?.cookTimeMinutes ?? 0) Min"
+        difficultyLabel.text = recipes?.difficulty ?? "easy"
+        ingredientsLabel.text = separatorIngredientsLabel(recipes?.ingredients ?? ["asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd"])
+        print(ingredientsLabel.text!)
 
-        let imageURL = URL(string: recipe?.image ?? "")
+    }
+
+    func fetchDishImage() {
+        let imageURL = URL(string: recipes?.image ?? "")
         guard let imageURL else {
-            print("Invalid image URL: \(recipe?.image ?? "")")
+            print("Invalid image URL: \(recipes?.image ?? "")")
             return
         }
 
@@ -74,61 +117,74 @@ private extension DetailReceiptViewController {
                 switch result {
                     case .success(let imageData):
                         self.dishImage.image = UIImage(data: imageData)
+                        self.activituIndicator.stopAnimating()
                     case .failure(let error):
                         print(error)
+                        self.activituIndicator.stopAnimating()
                 }
-
             }
         }
-
-        ratingDishLabel.text = "\(recipe?.rating ?? 0)"
-        minutesLabel.text = "\(recipe?.cookTimeMinutes ?? 0)"
-        difficultyLabel.text = recipe?.difficulty
     }
 
+    func separatorIngredientsLabel(_ ingrediets: [String]) -> String {
+        return ingrediets.map { "•  \($0)" }.joined(separator: "\n \n")
+    }
 
     //MARK: Configure UI
     func setupUI() {
         addSubviews()
-
+        constraintsScrollView()
+        constraintsContentView()
         constraintsDishImage()
+        constraintsActivityIndicator()
         constraintsStackView()
         constraintsContainerSegmentoController()
         constraintsSegmentedCotroller()
+        constraintsIngredientsLabel()
+        activituIndicator.startAnimating()
     }
 
     func addSubviews() {
-        view.addSubview(dishImage)
-        view.addSubview(labelStackView)
-        view.addSubview(segmentedUIView)
-        configureContainerSegmentoController()
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         configureSegmentoController()
-        segmentedUIView.addSubview(segmentedController)
+        configureContainerSegmentoController()
+
+        let viewArray = [dishImage, activituIndicator, labelStackView, segmentedUIView, ingredientsLabel]
+        viewArray.forEach {contentView.addSubview($0)}
+
     }
 
     func configureContainerSegmentoController() {
         segmentedUIView.clipsToBounds = true
         segmentedUIView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedUIView.addSubview(segmentedController)
     }
 
     func configureSegmentoController() {
-        segmentedController = UISegmentedControl(items: ["One", "Two"])
+        segmentedController = UISegmentedControl(items: ["Ingredients", "Directions"])
 
         segmentedController.selectedSegmentIndex = 0
         segmentedController.selectedSegmentTintColor = .black
-        segmentedController.backgroundColor = .clear
-        segmentedController.backgroundColor = .systemGray6
+        segmentedController.backgroundColor = .white
         segmentedController.clipsToBounds = true
         segmentedController.layer.masksToBounds = true
         segmentedController.layer.cornerRadius = 40
 
         segmentedController.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        segmentedController.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+        segmentedController.setTitleTextAttributes([.foregroundColor: UIColor.systemGray], for: .normal)
         segmentedController.translatesAutoresizingMaskIntoConstraints = false
 
         segmentedController.addTarget(self, action: #selector(tapSegmentedController), for: .valueChanged)
     }
 
+
+
+
+
+
+
+    //MARK: Action
     @objc func tapSegmentedController(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
             case 0:
@@ -141,20 +197,49 @@ private extension DetailReceiptViewController {
     }
 
 //MARK: Constraints
+
+    func constraintsScrollView() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+
+    func constraintsContentView() {
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+    }
+
     func constraintsDishImage() {
         NSLayoutConstraint.activate([
-            dishImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            dishImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            dishImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            dishImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+            dishImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            dishImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            dishImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            dishImage.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 0.45)
+        ])
+    }
+
+    func constraintsActivityIndicator() {
+        NSLayoutConstraint.activate([
+            activituIndicator.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor),
+            activituIndicator.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor),
+            activituIndicator.topAnchor.constraint(equalTo: dishImage.topAnchor),
+            activituIndicator.bottomAnchor.constraint(equalTo: dishImage.bottomAnchor)
         ])
     }
 
     func constraintsStackView() {
         NSLayoutConstraint.activate([
             labelStackView.topAnchor.constraint(equalTo: dishImage.bottomAnchor, constant: 10),
-            labelStackView.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor),
-            labelStackView.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor)
+            labelStackView.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor, constant: 5),
+            labelStackView.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor, constant: -5)
         ])
     }
 
@@ -163,7 +248,7 @@ private extension DetailReceiptViewController {
             segmentedUIView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 10),
             segmentedUIView.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor),
             segmentedUIView.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor),
-            segmentedUIView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.04)
+            segmentedUIView.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
 
@@ -175,6 +260,15 @@ private extension DetailReceiptViewController {
             segmentedController.bottomAnchor.constraint(equalTo: segmentedUIView.bottomAnchor, constant: 5)
         ])
     }
+
+    func constraintsIngredientsLabel() {
+        NSLayoutConstraint.activate([
+            ingredientsLabel.topAnchor.constraint(equalTo: segmentedUIView.bottomAnchor, constant: 20),
+            ingredientsLabel.leadingAnchor.constraint(equalTo: segmentedUIView.leadingAnchor, constant: 5),
+            ingredientsLabel.trailingAnchor.constraint(equalTo: segmentedUIView.trailingAnchor, constant: -5),
+            ingredientsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -90)
+        ])
+    }
 }
 
 
@@ -182,8 +276,8 @@ private extension DetailReceiptViewController {
 
         //MARK: UI Helper
     func addLabel(
-        font: UIFont = UIFont.systemFont(ofSize: 13, weight: .light),
-        textColor: UIColor = .black,
+        font: UIFont = UIFont.systemFont(ofSize: 17, weight: .regular),
+        textColor: UIColor = .systemGray,
         textAlignment: NSTextAlignment = .left,
         minimumScaleFactor: CGFloat = 0.9
     ) -> UILabel {
@@ -192,6 +286,7 @@ private extension DetailReceiptViewController {
         $0.text = " asdasdasdasd "
         $0.textColor = textColor
         $0.textAlignment = .left
+        $0.baselineAdjustment = .alignBaselines
         $0.minimumScaleFactor = 0.9
         $0.adjustsFontForContentSizeCategory = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -202,8 +297,8 @@ private extension DetailReceiptViewController {
 
     func createStackView(
         axis: NSLayoutConstraint.Axis = .horizontal,
-        spacing: CGFloat = 2,
-        distribution: UIStackView.Distribution = .fillProportionally,
+        spacing: CGFloat = 0,
+        distribution: UIStackView.Distribution = .equalCentering,
         aligment: UIStackView.Alignment = .fill,
         subviews: [UIView]
     ) -> UIStackView {
@@ -222,35 +317,21 @@ private extension DetailReceiptViewController {
 
 }
 
-    // Add UIImage extension for creating solid color images
-    extension UIImage {
-        convenience init?(color: UIColor, size: CGSize) {
-            let rect = CGRect(origin: .zero, size: size)
-            UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-            color.setFill()
-            UIRectFill(rect)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
+extension DetailReceiptViewController: UIScrollViewDelegate {
 
-            guard let cgImage = image?.cgImage else { return nil }
-            self.init(cgImage: cgImage)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let dishImageHeight = dishImage.frame.height
+
+        if offsetY > 0 { // Прокрутка вниз
+            let scale = max(1 - offsetY / dishImageHeight, 0.8)
+            dishImage.transform = CGAffineTransform(scaleX: scale, y: scale)
+        } else {
+            dishImage.transform = .identity
+            labelStackView.transform = .identity
         }
     }
-
-//extension DetailReceiptViewController {
-//    func fetchReceites() {
-//        networkManager.fetch(Recipes.self, from: Links.receipt.url) { [weak self] result in
-//            guard let self else { return }
-//            switch result {
-//                case .success(let dataReceipt):
-//                    self.recipes = dataReceipt.recipes
-//                case .failure(let error):
-//                    print(error)
-//                    showAlert(with: .failed)
-//            }
-//        }
-//    }
-//}
+}
 
 #Preview {
     let view = DetailReceiptViewController()

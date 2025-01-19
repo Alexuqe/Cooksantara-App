@@ -120,6 +120,7 @@ final class HomeViewController: UIViewController {
         setupUI()
         registerCell()
         fetchReceites()
+        print(recipes)
     }
 
 
@@ -129,23 +130,26 @@ final class HomeViewController: UIViewController {
 private extension HomeViewController {
 
         //MARK: Configure UI
-    private func configureNavigationBar() {
+    func configureNavigationBar() {
         let appearance = UINavigationBarAppearance()
-        let paragrafStyle = NSMutableParagraphStyle()
-        paragrafStyle.lineHeightMultiple = 1.33
         appearance.largeTitleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 22, weight: .bold),
-            .foregroundColor: UIColor.black,
-            .paragraphStyle: paragrafStyle]
+            .font: UIFont.systemFont(ofSize: 20, weight: .bold),
+            .foregroundColor: UIColor.black
+        ]
 
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .white
 
         navigationItem.title = "What do you want cooking today?"
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        let backButton = UIBarButtonItem()
+        backButton.tintColor = .systemGray2
+        navigationItem.backBarButtonItem = backButton
     }
 
     func setupUI() {
@@ -172,8 +176,6 @@ private extension HomeViewController {
         trendingCollectionView.register(
             TrendinCollectionViewCell.self,
             forCellWithReuseIdentifier: TrendinCollectionViewCell.identifer)
-
-            //  trendingCollectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifer)
     }
 
 
@@ -290,7 +292,7 @@ private extension HomeViewController {
 }
 
 
-#Preview {
-    let view = HomeViewController()
-    view
-}
+//#Preview {
+//    let view = HomeViewController()
+//    view
+//}

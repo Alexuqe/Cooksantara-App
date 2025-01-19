@@ -57,7 +57,7 @@ final class PlaceholderUIView: UIView {
     }
 
     private func configureNameDishLabel() {
-        nameDishLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        nameDishLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         nameDishLabel.textColor = .white
         nameDishLabel.textAlignment = .left
         nameDishLabel.minimumScaleFactor = 0.9
@@ -70,7 +70,7 @@ final class PlaceholderUIView: UIView {
     }
 
     private func configureRatingDishLabel() {
-        ratingDishLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        ratingDishLabel.font = UIFont.systemFont(ofSize: 10, weight: .light)
         ratingDishLabel.textColor = .white
         ratingDishLabel.textAlignment = .left
         ratingDishLabel.minimumScaleFactor = 0.9
