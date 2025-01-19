@@ -292,7 +292,7 @@ private extension HomeViewController {
 }
 
 
-//#Preview {
-//    let view = HomeViewController()
-//    view
-//}
+#Preview {
+    let view = HomeViewController()
+    view
+}

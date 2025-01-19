@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum ShowSegmented {
+    case firstScreen
+    case secondScreen
+}
+
 final class DetailReceiptViewController: UIViewController {
 
     //MARK: Private Outlets
@@ -63,6 +68,13 @@ final class DetailReceiptViewController: UIViewController {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         return ingredientsLabel
     }()
+    private lazy var instructionsTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = .white
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
 
 
 
@@ -72,6 +84,7 @@ final class DetailReceiptViewController: UIViewController {
     //MARK: Private Propeties
     private lazy var views: [UIView] = [ratingDishLabel, minutesLabel, difficultyLabel]
     private let networkManager = NetworkManager.shared
+    private let isHidenSegmented = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +142,7 @@ private extension DetailReceiptViewController {
     func separatorIngredientsLabel(_ ingrediets: [String]) -> String {
         return ingrediets.map { "•  \($0)" }.joined(separator: "\n \n")
     }
+
 
     //MARK: Configure UI
     func setupUI() {
@@ -317,13 +331,14 @@ private extension DetailReceiptViewController {
 
 }
 
+//MARK: ScrollDelagate
 extension DetailReceiptViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let dishImageHeight = dishImage.frame.height
 
-        if offsetY > 0 { // Прокрутка вниз
+        if offsetY > 0 {
             let scale = max(1 - offsetY / dishImageHeight, 0.8)
             dishImage.transform = CGAffineTransform(scaleX: scale, y: scale)
         } else {
