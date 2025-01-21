@@ -53,8 +53,22 @@ final class DetailReceiptViewController: UIViewController {
     private lazy var minutesLabel = addLabel()
     private  lazy var difficultyLabel = addLabel()
     private lazy var labelStackView = createStackView(subviews: views)
-    private lazy var segmentedUIView = UIView()
-    private lazy var segmentedController = UISegmentedControl()
+    private lazy var segmentedController: UISegmentedControl = {
+        var segmented = UISegmentedControl()
+        segmented = UISegmentedControl(items: ["Ingredients", "Instructions"])
+        segmented.selectedSegmentIndex = 0
+        segmented.selectedSegmentTintColor = .black
+        segmented.backgroundColor = .clear
+        segmented.clipsToBounds = true
+        segmented.layer.masksToBounds = true
+        segmented.setTitleTextAttributes([.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 17)], for: .selected)
+        segmented.setTitleTextAttributes([.foregroundColor: UIColor.systemGray, .font: UIFont.systemFont(ofSize: 17)], for: .normal)
+        segmented.translatesAutoresizingMaskIntoConstraints = false
+        return segmented
+    }()
+
+    private lazy var customSegmentedController = CustomSegmentedCotroll("Ingredients", "Directions")
+
     private lazy var ingredientsLabel: UILabel = {
         let ingredientsLabel = UILabel()
         ingredientsLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -68,38 +82,43 @@ final class DetailReceiptViewController: UIViewController {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
         return ingredientsLabel
     }()
+
     private lazy var instructionsTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = .white
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.isHidden = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
-
-
 //MARK: Properties
     var recipes: Recipe?
+    var instructionOnTable: [String] = []
 
     //MARK: Private Propeties
     private lazy var views: [UIView] = [ratingDishLabel, minutesLabel, difficultyLabel]
     private let networkManager = NetworkManager.shared
-    private let isHidenSegmented = false
 
+    //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
         scrollView.delegate = self
-        setupUI()
-        updateUI()
-    }
+        instructionsTableView.delegate = self
+        instructionsTableView.dataSource = self
 
+        setupUI()
+        registerTableViewCell()
+//        fetchReceites()
+        print(instructionOnTable)
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        segmentedUIView.layoutIfNeeded()
-        segmentedUIView.layer.cornerRadius = segmentedUIView.frame.height / 2
+        updateUI()
     }
 
 }
@@ -143,7 +162,6 @@ private extension DetailReceiptViewController {
         return ingrediets.map { "•  \($0)" }.joined(separator: "\n \n")
     }
 
-
     //MARK: Configure UI
     func setupUI() {
         addSubviews()
@@ -153,60 +171,41 @@ private extension DetailReceiptViewController {
         constraintsActivityIndicator()
         constraintsStackView()
         constraintsContainerSegmentoController()
-        constraintsSegmentedCotroller()
         constraintsIngredientsLabel()
+        constraintsInstructionTableView()
         activituIndicator.startAnimating()
     }
 
     func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
+
         configureSegmentoController()
-        configureContainerSegmentoController()
-
-        let viewArray = [dishImage, activituIndicator, labelStackView, segmentedUIView, ingredientsLabel]
-        viewArray.forEach {contentView.addSubview($0)}
-
+        viewsInContentView()
     }
 
-    func configureContainerSegmentoController() {
-        segmentedUIView.clipsToBounds = true
-        segmentedUIView.translatesAutoresizingMaskIntoConstraints = false
-        segmentedUIView.addSubview(segmentedController)
+    func viewsInContentView() {
+        let viewArray = [dishImage, activituIndicator, labelStackView, segmentedController, ingredientsLabel, instructionsTableView]
+        viewArray.forEach {contentView.addSubview($0)}
     }
 
     func configureSegmentoController() {
-        segmentedController = UISegmentedControl(items: ["Ingredients", "Directions"])
-
-        segmentedController.selectedSegmentIndex = 0
-        segmentedController.selectedSegmentTintColor = .black
-        segmentedController.backgroundColor = .white
-        segmentedController.clipsToBounds = true
-        segmentedController.layer.masksToBounds = true
-        segmentedController.layer.cornerRadius = 40
-
-        segmentedController.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        segmentedController.setTitleTextAttributes([.foregroundColor: UIColor.systemGray], for: .normal)
-        segmentedController.translatesAutoresizingMaskIntoConstraints = false
-
         segmentedController.addTarget(self, action: #selector(tapSegmentedController), for: .valueChanged)
     }
 
-
-
-
-
-
+    func registerTableViewCell() {
+        instructionsTableView.register(CustomSegmentedTableViewCell.self, forCellReuseIdentifier: CustomSegmentedTableViewCell.identifer)
+    }
 
     //MARK: Action
     @objc func tapSegmentedController(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
             case 0:
-                return print("0")
-            case 1:
-                return print("1")
+                instructionsTableView.isHidden = true
+                ingredientsLabel.isHidden = false
             default:
-                break
+                instructionsTableView.isHidden = false
+                ingredientsLabel.isHidden = true
         }
     }
 
@@ -259,28 +258,38 @@ private extension DetailReceiptViewController {
 
     func constraintsContainerSegmentoController() {
         NSLayoutConstraint.activate([
-            segmentedUIView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 10),
-            segmentedUIView.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor),
-            segmentedUIView.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor),
-            segmentedUIView.heightAnchor.constraint(equalToConstant: 45)
+            segmentedController.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 10),
+            segmentedController.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor),
+            segmentedController.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor),
+            segmentedController.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
 
-    func constraintsSegmentedCotroller() {
+    func costraintsCustomSegmentedView() {
         NSLayoutConstraint.activate([
-            segmentedController.topAnchor.constraint(equalTo: segmentedUIView.topAnchor, constant: -5),
-            segmentedController.leadingAnchor.constraint(equalTo: segmentedUIView.leadingAnchor, constant: -5),
-            segmentedController.trailingAnchor.constraint(equalTo: segmentedUIView.trailingAnchor, constant: 5),
-            segmentedController.bottomAnchor.constraint(equalTo: segmentedUIView.bottomAnchor, constant: 5)
+            customSegmentedController.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 20),
+            customSegmentedController.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor),
+            customSegmentedController.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor),
+            customSegmentedController.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.115)
+
         ])
     }
 
     func constraintsIngredientsLabel() {
         NSLayoutConstraint.activate([
-            ingredientsLabel.topAnchor.constraint(equalTo: segmentedUIView.bottomAnchor, constant: 20),
-            ingredientsLabel.leadingAnchor.constraint(equalTo: segmentedUIView.leadingAnchor, constant: 5),
-            ingredientsLabel.trailingAnchor.constraint(equalTo: segmentedUIView.trailingAnchor, constant: -5),
+            ingredientsLabel.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 20),
+            ingredientsLabel.leadingAnchor.constraint(equalTo: segmentedController.leadingAnchor, constant: 5),
+            ingredientsLabel.trailingAnchor.constraint(equalTo: segmentedController.trailingAnchor, constant: -5),
             ingredientsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -90)
+        ])
+    }
+
+    func constraintsInstructionTableView() {
+        NSLayoutConstraint.activate([
+            instructionsTableView.topAnchor.constraint(equalTo: segmentedController.bottomAnchor, constant: 5),
+            instructionsTableView.leadingAnchor.constraint(equalTo: segmentedController.leadingAnchor, constant: 5),
+            instructionsTableView.trailingAnchor.constraint(equalTo: segmentedController.trailingAnchor, constant: -5),
+            instructionsTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -10)
         ])
     }
 }
@@ -343,10 +352,10 @@ extension DetailReceiptViewController: UIScrollViewDelegate {
             dishImage.transform = CGAffineTransform(scaleX: scale, y: scale)
         } else {
             dishImage.transform = .identity
-            labelStackView.transform = .identity
         }
     }
 }
+
 
 #Preview {
     let view = DetailReceiptViewController()

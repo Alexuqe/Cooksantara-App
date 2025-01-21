@@ -10,6 +10,10 @@
 		CE1091A82D36C58F00A1E96D /* extension + UICollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */; };
 		CE1091AA2D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */; };
 		CE1091AC2D36D10100A1E96D /* TrendinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */; };
+		CE50D1EB2D3EC21D0085A9AE /* extension + UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50D1EA2D3EC21D0085A9AE /* extension + UITableViewDataSource.swift */; };
+		CE50D1ED2D3EC2630085A9AE /* extension + UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50D1EC2D3EC2630085A9AE /* extension + UITableViewDelegate.swift */; };
+		CE50D1F12D3EE09B0085A9AE /* extension + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50D1F02D3EE09B0085A9AE /* extension + UIButton.swift */; };
+		CE50D1F32D3EE1250085A9AE /* CustomSegmentedCotroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE50D1F22D3EE11D0085A9AE /* CustomSegmentedCotroll.swift */; };
 		CE5FDD302D398B1C003C39A2 /* extension + UICollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5FDD2F2D398B0D003C39A2 /* extension + UICollectionViewFlowLayout.swift */; };
 		CE5FDD322D399B55003C39A2 /* ChefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5FDD312D399B55003C39A2 /* ChefCollectionViewCell.swift */; };
 		CE5FDD342D399B8E003C39A2 /* DetailReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5FDD332D399B8E003C39A2 /* DetailReceiptViewController.swift */; };
@@ -35,6 +39,10 @@
 		CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewDataSource.swift"; sourceTree = "<group>"; };
 		CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		CE1091AB2D36D10100A1E96D /* TrendinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendinCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE50D1EA2D3EC21D0085A9AE /* extension + UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		CE50D1EC2D3EC2630085A9AE /* extension + UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		CE50D1F02D3EE09B0085A9AE /* extension + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UIButton.swift"; sourceTree = "<group>"; };
+		CE50D1F22D3EE11D0085A9AE /* CustomSegmentedCotroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedCotroll.swift; sourceTree = "<group>"; };
 		CE5FDD2F2D398B0D003C39A2 /* extension + UICollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + UICollectionViewFlowLayout.swift"; sourceTree = "<group>"; };
 		CE5FDD312D399B55003C39A2 /* ChefCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChefCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE5FDD332D399B8E003C39A2 /* DetailReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReceiptViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +85,7 @@
 				CE5FDD312D399B55003C39A2 /* ChefCollectionViewCell.swift */,
 				CEA5253B2D39757600E43370 /* HeaderCollectionReusableView.swift */,
 				CECE8E682D3D494E00F7F41F /* CustomSegmentedTableViewCell.swift */,
+				CE50D1F22D3EE11D0085A9AE /* CustomSegmentedCotroll.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,10 +172,13 @@
 			isa = PBXGroup;
 			children = (
 				CE83C6B22D34237500BB041A /* extension + UIView.swift */,
+				CE50D1F02D3EE09B0085A9AE /* extension + UIButton.swift */,
 				CE7EA84D2D35A4490081BC98 /* extension + UIAlertController.swift */,
 				CE1091A72D36C58E00A1E96D /* extension + UICollectionViewDataSource.swift */,
 				CE5FDD2F2D398B0D003C39A2 /* extension + UICollectionViewFlowLayout.swift */,
 				CE1091A92D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift */,
+				CE50D1EA2D3EC21D0085A9AE /* extension + UITableViewDataSource.swift */,
+				CE50D1EC2D3EC2630085A9AE /* extension + UITableViewDelegate.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -251,6 +263,7 @@
 				CE5FDD342D399B8E003C39A2 /* DetailReceiptViewController.swift in Sources */,
 				CE83C6A52D34129900BB041A /* AppDelegate.swift in Sources */,
 				CE83C6BA2D3452BD00BB041A /* SearchViewController.swift in Sources */,
+				CE50D1EB2D3EC21D0085A9AE /* extension + UITableViewDataSource.swift in Sources */,
 				CE83C6B82D3452A800BB041A /* HomeViewController.swift in Sources */,
 				CE1091AC2D36D10100A1E96D /* TrendinCollectionViewCell.swift in Sources */,
 				CE83C6B02D341F6600BB041A /* NetworkManager.swift in Sources */,
@@ -261,11 +274,14 @@
 				CE83C6A62D34129900BB041A /* SceneDelegate.swift in Sources */,
 				CE1091AA2D36C5B600A1E96D /* extension + UICollectionViewDelegate.swift in Sources */,
 				CE5FDD322D399B55003C39A2 /* ChefCollectionViewCell.swift in Sources */,
+				CE50D1ED2D3EC2630085A9AE /* extension + UITableViewDelegate.swift in Sources */,
 				CE7EA84E2D35A4490081BC98 /* extension + UIAlertController.swift in Sources */,
 				CEA5253C2D39757600E43370 /* HeaderCollectionReusableView.swift in Sources */,
 				CE1091A82D36C58F00A1E96D /* extension + UICollectionViewDataSource.swift in Sources */,
+				CE50D1F32D3EE1250085A9AE /* CustomSegmentedCotroll.swift in Sources */,
 				CE83C6BC2D3452F900BB041A /* FavouritesViewController.swift in Sources */,
 				CE83C6A72D34129900BB041A /* LaunchViewController.swift in Sources */,
+				CE50D1F12D3EE09B0085A9AE /* extension + UIButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

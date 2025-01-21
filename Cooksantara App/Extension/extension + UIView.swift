@@ -35,8 +35,3 @@ extension UIView {
     }
 }
 
-#Preview {
-    let view = LaunchViewController()
-    view
-}
-

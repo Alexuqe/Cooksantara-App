@@ -107,10 +107,9 @@ private extension TrendinCollectionViewCell {
     func constraintsDishImage() {
         NSLayoutConstraint.activate([
             dishImage.topAnchor.constraint(equalTo: topAnchor),
-            dishImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            dishImage.bottomAnchor.constraint(equalTo: bottomAnchor),
             dishImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             dishImage.trailingAnchor.constraint(equalTo: trailingAnchor)
-
         ])
     }
 
@@ -128,7 +127,7 @@ private extension TrendinCollectionViewCell {
             viewWithDetail.bottomAnchor.constraint(equalTo: dishImage.bottomAnchor, constant: -10),
             viewWithDetail.leadingAnchor.constraint(equalTo: dishImage.leadingAnchor, constant: 10),
             viewWithDetail.trailingAnchor.constraint(equalTo: dishImage.trailingAnchor, constant: -10),
-            viewWithDetail.heightAnchor.constraint(equalTo: dishImage.heightAnchor, multiplier: 0.25)
+            viewWithDetail.heightAnchor.constraint(equalTo: dishImage.heightAnchor, multiplier: 0.32)
 
         ])
     }

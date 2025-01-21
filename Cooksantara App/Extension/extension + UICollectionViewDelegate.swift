@@ -16,8 +16,7 @@ extension HomeViewController: UICollectionViewDelegate {
         let detailVC = DetailReceiptViewController()
         detailVC.recipes = receiptsDetail
         detailVC.title = receiptsDetail.name
-
-
+        detailVC.instructionOnTable = receiptsDetail.instructions
         navigationController?.pushViewController(detailVC, animated: true)
     }
 
